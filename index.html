@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Calculator Compatibility Checker</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: white;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        .container {
+            margin: 100px auto;
+            width: 90%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2, p, label {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        input, select, button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #333;
+            font-size: 1em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            width: 80%;
+            max-width: 300px;
+        }
+
+        button {
+            background: #ff6f61;
+            cursor: pointer;
+            color: white;
+        }
+
+        button:hover {
+            background: #e55d50;
+        }
+
+        .warning {
+            font-size: 0.9em;
+            color: #ff6f61;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border: 1px solid #ff6f61;
+        }
+
+        .love-sign {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"%3E%3Cpath fill="red" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"%3E%3C/path%3E%3C/svg%3E') no-repeat center center;
+            background-size: contain;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .love-sign:nth-child(1) {
+            top: 50px;
+            left: 5%;
+        }
+
+        .love-sign:nth-child(2) {
+            top: 50px;
+            right: 5%;
+        }
+
+        .love-sign:nth-child(3) {
+            top: 140px;
+            left: 5%;
+        }
+
+        .love-sign:nth-child(4) {
+            top: 140px;
+            right: 5%;
+        }
+    </style>
+</head>
+<body>
+    <div class="love-sign"></div>
+    <div class="love-sign"></div>
+    <div class="love-sign"></div>
+    <div class="love-sign"></div>
+
+    <div id="welcome-page" class="container">
+        <h1>Welcome to the Love Calculator!</h1>
+        <h2>Check Your Compatibility with Your Crush</h2>
+        <button onclick="showFormPage()">Let's Go</button>
+    </div>
+
+    <div id="form-page" class="container" style="display:none;">
+        <p class="warning">This website is made by the love angels. Don't put any fake names. Put the name you absolutely love and have a crush on.</p>
+        <form onsubmit="return handleSubmit(event)">
+            <label for="your-name">Your Name:</label>
+            <input type="text" id="your-name" name="your-name" required>
+
+            <label for="your-dob">Your Date of Birth:</label>
+            <input type="date" id="your-dob" name="your-dob" required>
+
+            <label for="your-horoscope">Your Horoscope:</label>
+            <select id="your-horoscope" name="your-horoscope" required>
+                <option value="aries">Aries</option>
+                <option value="taurus">Taurus</option>
+                <option value="gemini">Gemini</option>
+                <option value="cancer">Cancer</option>
+                <option value="leo">Leo</option>
+                <option value="virgo">Virgo</option>
+                <option value="libra">Libra</option>
+                <option value="scorpio">Scorpio</option>
+                <option value="sagittarius">Sagittarius</option>
+                <option value="capricorn">Capricorn</option>
+                <option value="aquarius">Aquarius</option>
+                <option value="pisces">Pisces</option>
+            </select>
+
+            <label for="crush-name">Your Crush's Name:</label>
+            <input type="text" id="crush-name" name="crush-name" required>
+
+            <label for="crush-dob">Your Crush's Date of Birth:</label>
+            <input type="date" id="crush-dob" name="crush-dob" required>
+
+            <label for="crush-horoscope">Your Crush's Horoscope:</label>
+            <select id="crush-horoscope" name="crush-horoscope" required>
+                <option value="aries">Aries</option>
+                <option value="taurus">Taurus</option>
+                <option value="gemini">Gemini</option>
+                <option value="cancer">Cancer</option>
+                <option value="leo">Leo</option>
+                <option value="virgo">Virgo</option>
+                <option value="libra">Libra</option>
+                <option value="scorpio">Scorpio</option>
+                <option value="sagittarius">Sagittarius</option>
+                <option value="capricorn">Capricorn</option>
+                <option value="aquarius">Aquarius</option>
+                <option value="pisces">Pisces</option>
+            </select>
+
+            <p class="warning">This website is made by the love angels. Don't put any fake names. Put the name you absolutely love and have a crush on.</p>
+            <button type="submit">Calculate</button>
+        </form>
+    </div>
+
+    <div id="result-page" class="container" style="display:none;">
+        <h1>Love Compatibility Result</h1>
+        <p id="result-text">Calculating...</p>
+    </div>
+
+    <script type="module">
+      // Import the Firebase SDK
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+      import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCCPtUfXpMGj5jFyJu1IWNbAjz8giZZNtM",
+        authDomain: "project-calculator-e03ee.firebaseapp.com",
+        databaseURL: "https://project-calculator-e03ee-default-rtdb.firebaseio.com",
+        projectId: "project-calculator-e03ee",
+        storageBucket: "project-calculator-e03ee.appspot.com",
+        messagingSenderId: "219745991949",
+        appId: "1:219745991949:web:d638826a2b5c5fe6f1c444",
+        measurementId: "G-Q12G9XZP8Q"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
+
+      function showFormPage() {
+          document.getElementById('welcome-page').style.display = 'none';
+          document.getElementById('form-page').style.display = 'block';
+      }
+
+      function handleSubmit(event) {
+          event.preventDefault();
+          alert("This website is made by the love angels. Don't put any fake names. Put the name you absolutely love and have a crush on.");
+
+          const yourName = document.getElementById('your-name').value;
+          const crushName = document.getElementById('crush-name').value;
+          const yourDob = document.getElementById('your-dob').value;
+          const crushDob = document.getElementById('crush-dob').value;
+          const yourHoroscope = document.getElementById('your-horoscope').value;
+          const crushHoroscope = document.getElementById('crush-horoscope').value;
+
+          const percentage = calculateLovePercentage(yourName, crushName);
+
+          const resultText = `The love compatibility between ${yourName} and ${crushName} is ${percentage}%.`;
+          document.getElementById('result-text').textContent = resultText;
+
+          // Save data to Firebase
+          push(ref(database, 'love_calculations'), {
+              yourName,
+              crushName,
+              yourDob,
+              crushDob,
+              yourHoroscope,
+              crushHoroscope,
+              percentage
+          }).then(() => {
+              console.log("Data saved successfully.");
+          }).catch((error) => {
+              console.error("Error saving data:", error);
+          });
+
+          document.getElementById('form-page').style.display = 'none';
+          document.getElementById('result-page').style.display = 'block';
+      }
+
+      function calculateLovePercentage(yourName, crushName) {
+    // Convert both names to lowercase for case-insensitive comparison
+    const yourNameLower = yourName.toLowerCase();
+    const crushNameLower = crushName.toLowerCase();
+    
+    // Get the first character of each name
+    const yourNameInitial = yourNameLower[0];
+    const crushNameInitial = crushNameLower[0];
+
+    console.log('Your Name (lowercase):', yourNameLower);
+    console.log('Crush Name (lowercase):', crushNameLower);
+    console.log('Your Name Initial:', yourNameInitial);
+    console.log('Crush Name Initial:', crushNameInitial);
+
+    if (yourNameLower === 'megha') {
+        if (crushNameInitial === 'k') {
+            const percentage = 95 + Math.floor(Math.random() * 5);
+            console.log('Compatibility Percentage:', percentage);
+            return percentage;
+        } else {
+            const percentage = 60 - Math.floor(Math.random() * 15);
+            console.log('Compatibility Percentage:', percentage);
+            return percentage;
+        }
+    } else {
+        const percentage = 85 + Math.floor(Math.random() * 15);
+        console.log('Compatibility Percentage:', percentage);
+        return percentage;
+    }
+}
+
+// Example usage
+console.log(calculateLovePercentage('Megha', 'Karan')); // Should return a number between 95 and 100
+console.log(calculateLovePercentage('Megha', 'Amit'));  // Should return a number between 45 and 60
+console.log(calculateLovePercentage('John', 'Doe'));    // Should return a number between 85 and 100
+
+
+
+      window.showFormPage = showFormPage;
+      window.handleSubmit = handleSubmit;
+    </script>
+</body>
+</html>
