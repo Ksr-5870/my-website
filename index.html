@@ -6,7 +6,7 @@
     <title>Love Calculator Compatibility Checker</title>
     <style>
         body {
-            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #ff6f61);
             font-family: Arial, sans-serif;
             text-align: center;
             color: white;
@@ -65,6 +65,18 @@
             border: 1px solid #ff6f61;
         }
 
+        .error {
+            font-size: 0.9em;
+            color: #ff6f61;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border: 1px solid #ff6f61;
+            display: none;
+        }
+
         .love-sign {
             position: absolute;
             width: 50px;
@@ -115,9 +127,10 @@
 
     <div id="form-page" class="container" style="display:none;">
         <p class="warning">This website is made by the love angels. Don't put any fake names. Put the name you absolutely love and have a crush on.</p>
+        <p class="error" id="error-message">Please enter all names in uppercase letters.</p>
         <form onsubmit="return handleSubmit(event)">
             <label for="your-name">Your Name:</label>
-            <input type="text" id="your-name" name="your-name" required>
+            <input type="text" id="your-name" name="your-name" required oninput="convertToUpper(this)">
 
             <label for="your-dob">Your Date of Birth:</label>
             <input type="date" id="your-dob" name="your-dob" required>
@@ -139,7 +152,7 @@
             </select>
 
             <label for="crush-name">Your Crush's Name:</label>
-            <input type="text" id="crush-name" name="crush-name" required>
+            <input type="text" id="crush-name" name="crush-name" required oninput="convertToUpper(this)">
 
             <label for="crush-dob">Your Crush's Date of Birth:</label>
             <input type="date" id="crush-dob" name="crush-dob" required>
@@ -175,7 +188,7 @@
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
       import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
 
-      // Your web app's Firebase configuration
+      // Firebase configuration
       const firebaseConfig = {
         apiKey: "AIzaSyCCPtUfXpMGj5jFyJu1IWNbAjz8giZZNtM",
         authDomain: "project-calculator-e03ee.firebaseapp.com",
@@ -198,10 +211,19 @@
 
       function handleSubmit(event) {
           event.preventDefault();
-          alert("This website is made by the love angels. Don't put any fake names. Put the name you absolutely love and have a crush on.");
-
           const yourName = document.getElementById('your-name').value;
           const crushName = document.getElementById('crush-name').value;
+
+          if (!isUpperCase(yourName) || !isUpperCase(crushName)) {
+              document.getElementById('error-message').style.display = 'block';
+              return false;
+          }
+
+          // Hide error message if everything is correct
+          document.getElementById('error-message').style.display = 'none';
+
+          alert("This website is made by the love angels. Don't put any fake names. Put the name you absolutely love and have a crush on.");
+
           const yourDob = document.getElementById('your-dob').value;
           const crushDob = document.getElementById('crush-dob').value;
           const yourHoroscope = document.getElementById('your-horoscope').value;
@@ -231,46 +253,47 @@
           document.getElementById('result-page').style.display = 'block';
       }
 
+      function isUpperCase(str) {
+          return str === str.toUpperCase();
+      }
+
       function calculateLovePercentage(yourName, crushName) {
-    // Convert both names to lowercase for case-insensitive comparison
-    const yourNameLower = yourName.toLowerCase();
-    const crushNameLower = crushName.toLowerCase();
-    
-    // Get the first character of each name
-    const yourNameInitial = yourNameLower[0];
-    const crushNameInitial = crushNameLower[0];
+        // Convert both names to lowercase for case-insensitive comparison
+        const yourNameLower = yourName.toLowerCase();
+        const crushNameLower = crushName.toLowerCase();
+        
+        // Get the first character of each name
+        const yourNameInitial = yourNameLower[0];
+        const crushNameInitial = crushNameLower[0];
 
-    console.log('Your Name (lowercase):', yourNameLower);
-    console.log('Crush Name (lowercase):', crushNameLower);
-    console.log('Your Name Initial:', yourNameInitial);
-    console.log('Crush Name Initial:', crushNameInitial);
+        console.log('Your Name (lowercase):', yourNameLower);
+        console.log('Crush Name (lowercase):', crushNameLower);
+        console.log('Your Name Initial:', yourNameInitial);
+        console.log('Crush Name Initial:', crushNameInitial);
 
-    if (yourNameLower === 'megha') {
-        if (crushNameInitial === 'k') {
-            const percentage = 95 + Math.floor(Math.random() * 5);
-            console.log('Compatibility Percentage:', percentage);
-            return percentage;
+        if (yourNameLower === 'megha') {
+            if (crushNameInitial === 'k') {
+                const percentage = 95 + Math.floor(Math.random() * 5);
+                console.log('Compatibility Percentage:', percentage);
+                return percentage;
+            } else {
+                const percentage = 60 - Math.floor(Math.random() * 15);
+                console.log('Compatibility Percentage:', percentage);
+                return percentage;
+            }
         } else {
-            const percentage = 60 - Math.floor(Math.random() * 15);
+            const percentage = 85 + Math.floor(Math.random() * 15);
             console.log('Compatibility Percentage:', percentage);
             return percentage;
         }
-    } else {
-        const percentage = 85 + Math.floor(Math.random() * 15);
-        console.log('Compatibility Percentage:', percentage);
-        return percentage;
     }
-}
 
-// Example usage
-console.log(calculateLovePercentage('Megha', 'Karan')); // Should return a number between 95 and 100
-console.log(calculateLovePercentage('Megha', 'Amit'));  // Should return a number between 45 and 60
-console.log(calculateLovePercentage('John', 'Doe'));    // Should return a number between 85 and 100
+    function convertToUpper(input) {
+        input.value = input.value.toUpperCase();
+    }
 
-
-
-      window.showFormPage = showFormPage;
-      window.handleSubmit = handleSubmit;
+    window.showFormPage = showFormPage;
+    window.handleSubmit = handleSubmit;
     </script>
 </body>
 </html>
